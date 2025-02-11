@@ -4,7 +4,18 @@ app=Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    titulo="IDGS801"
+    lista=["pedro", "juan", "luis"]
+    return render_template("index.html",titulo=titulo, lista=lista)
+
+@app.route("/ejemplo1")
+def ejemplo1():
+   return render_template("ejemplo1.html")
+
+@app.route("/ejemplo2")
+def ejemplo2():
+   return render_template("ejemplo2.html")
+
 
 @app.route("/hola")
 def hola():
@@ -27,7 +38,7 @@ def suma(n1,n2):
    return f"<h1>La suma es: {n1+n2}</h1>"
 
 @app.route("/default/")
-@app.route("/default/<string:parm>") 
+@app.route("/default/<string:param>") 
 def func(param="Juan"):
    return f"<h1>Hola, {param} </h1>"
 
@@ -49,5 +60,5 @@ def operas():
 
 #levantar el servidor 
 if __name__=="__main__":
- app.run(debug=True,port=3000)
+    app.run(debug=True,port=3000)
 
