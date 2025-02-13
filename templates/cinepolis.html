@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinépolis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(1, 58, 135, 0.9);
+            background-size: cover;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            background-color: rgba(1, 58, 135, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            font-style: italic;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"] {
+            width: 90%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #ffcc00;
+            color: #013a87;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cinépolis</h1>
+        <form method="POST">
+            <label for="nombre">Nombre del comprador:</label>
+            <input type="text" id="nombre" name="nombre" required><br><br>
+            
+            <label for="personas">Cantidad de personas:</label>
+            <input type="number" id="personas" name="personas" required><br><br>
+            
+            <label for="boletos">Cantidad de boletos:</label>
+            <input type="number" id="boletos" name="boletos" required><br><br>
+
+            <label>Método de pago:</label>
+            <div class="radio-group">
+                <input type="radio" id="efectivo" name="metodo_pago" value="efectivo" required>
+                <label for="efectivo">Efectivo</label>
+                <input type="radio" id="tarjeta" name="metodo_pago" value="tarjeta">
+                <label for="tarjeta">Tarjeta CINECO</label>
+            </div><br>
+            
+            <button type="submit">Comprar</button>
+        </form>
+
+        {% if resultado %}
+            <h2>Salida</h2>
+            <p>{{ resultado|safe }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
