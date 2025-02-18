@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, render_template, request
 
 app=Flask(__name__) 
@@ -141,6 +142,45 @@ def cinepolis():
             resultado = "Cantidad de boletos no válida (máximo 7 por persona)."
 
     return render_template("cinepolis.html", resultado=resultado)
+
+# ZODIACO CHINO --------------------------------------------------------------------------------------
+
+def calcular_edad(fecha_nacimiento):
+    hoy = datetime.today()
+    edad = hoy.year - fecha_nacimiento.year - ((hoy.month, hoy.day) < (fecha_nacimiento.month, fecha_nacimiento.day))
+    return edad
+
+def obtener_signo_zodiaco_chino(anio):
+    signos = ["Mono", "Gallo", "Perro", "Cerdo", "Rata", "Buey", "Tigre", "Conejo", "Dragon", "Serpiente", "Caballo", "Cabra"]
+    return signos[anio % 12].lower()  
+
+
+@app.route("/zodiaco", methods=["GET", "POST"])
+def zodiaco():
+    resultado = None
+    if request.method == "POST":
+        nombre = request.form.get("nombre")
+        apellido_paterno = request.form.get("apellido_paterno")
+        apellido_materno = request.form.get("apellido_materno")
+        dia = int(request.form.get("dia"))
+        mes = int(request.form.get("mes"))
+        anio = int(request.form.get("anio"))
+        sexo = request.form.get("sexo")
+
+        fecha_nacimiento = datetime(anio, mes, dia)
+        edad = calcular_edad(fecha_nacimiento)
+        signo = obtener_signo_zodiaco_chino(anio)
+
+        resultado = {
+            "nombre_completo": f"{nombre} {apellido_paterno} {apellido_materno}",
+            "edad": edad,
+            "signo": signo,
+            "sexo": sexo
+        }
+
+    return render_template("zodiacoChino.html", resultado=resultado)
+
+
 
 
 

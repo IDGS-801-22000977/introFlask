@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zodiaco Chino</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: space-between;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .formulario {
+            width: 40%;
+            background: white;
+            padding: 20px;
+            border: 2px solid black;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        .campo {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        .sexo {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .resultado {
+            width: 50%;
+            padding: 20px;
+            font-size: 20px;
+        }
+        .signo-img {
+            width: 400px;
+            height: 250px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="formulario">
+        <h2>Datos personales</h2>
+        <form method="POST">
+            <div class="campo">
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" required>
+            </div>
+            <div class="campo">
+                <label for="apellido_paterno">Apellido Paterno:</label>
+                <input type="text" name="apellido_paterno" required>
+            </div>
+            <div class="campo">
+                <label for="apellido_materno">Apellido Materno:</label>
+                <input type="text" name="apellido_materno" required>
+            </div>
+
+            <div class="campo">
+                <label>Fecha de Nacimiento:</label>
+                <div style="display: flex; gap: 10px;">
+                    <div>
+                        <label for="dia">Día</label>
+                        <input type="number" name="dia" min="1" max="31" required>
+                    </div>
+                    <div>
+                        <label for="mes">Mes</label>
+                        <input type="number" name="mes" min="1" max="12" required>
+                    </div>
+                    <div>
+                        <label for="anio">Año</label>
+                        <input type="number" name="anio" min="1900" max="2025" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="campo">
+                <label>Sexo:</label>
+                <div class="sexo">
+                    <input type="radio" name="sexo" value="Masculino" required> Masculino
+                    <input type="radio" name="sexo" value="Femenino" required> Femenino
+                </div>
+            </div>
+
+            <button type="submit">IMPRIMIR</button>
+        </form>
+    </div>
+
+    <div class="resultado">
+        {% if resultado %}
+           
+            <p><strong>Hola {{ resultado.nombre_completo }}</strong></p>
+            <p>Tienes <strong>{{ resultado.edad }}</strong> años</p>
+            <p>Eres del sexo {{ resultado.sexo}}</p>
+            <p>Tu signo zodiacal chino es <strong>{{ resultado.signo }}</strong></p>
+            <img src="{{ url_for('static', filename='img/' + resultado.signo | lower + '.jpeg') }}" alt="{{ resultado.signo }}" class="signo-img">
+        {% endif %}
+    </div>
+
+</body>
+</html>
