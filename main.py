@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import Flask, render_template, request
+import forms 
 
 app=Flask(__name__) 
 
@@ -82,6 +83,22 @@ def operas():
     return render_template("OperasBas.html", resultado=resultado)
  
  
+
+@app.route("/Alumnos",methods=["GET","POST"])
+def alumnos():
+    mat=''
+    nom=''
+    ape=''
+    correo=''
+    alumno_clas=forms.UserForm(request.form)
+    if request.method == 'POST':
+        mat = alumno_clas.matricula.data
+        nom = alumno_clas.nombre.data
+        ape = alumno_clas.apellido.data
+        correo = alumno_clas.correo.data
+
+
+    return render_template("Alumnos.html",form=alumno_clas,mat=mat,nom=nom,ape=ape,correo=correo)
  # CINEPÓLIS -------------------------------------------------------------------------------------
 
 
