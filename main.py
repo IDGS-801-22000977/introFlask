@@ -1,8 +1,44 @@
 from datetime import datetime
 from flask import Flask, render_template, request
 import forms 
+from flask_wtf.csrf import CSRFProtect
+from flask import flash
+from flask import g
+
 
 app=Flask(__name__) 
+app.secret_key="esta es una clave secreta"
+csrf=CSRFProtect()
+signos_zodiaco = {
+    "Mono": "img/mono.png",
+    "Gallo": "img/gallo.png",
+    "Perro": "img/perro.png",
+    "Cerdo": "img/cerdo.png",
+    "Rata": "img/rata.png",
+    "Buey": "img/buey.png",
+    "Tigre": "img/tigre.png",
+    "Conejo": "img/conejo.png",
+    "Dragón": "img/dragon.png",
+    "Serpiente": "img/serpiente.png",
+    "Caballo": "img/caballo.png",
+    "Cabra": "img/cabra.png"
+}
+
+@app.errorhandler(404)
+def page_notfound(e):
+    return render_template('404.html'), 404
+
+@app.before_request
+def before_requestr():
+    g.user = "Mario"
+    print("beforer1")
+
+@app.after_request
+def after_request(response):
+    print("after1")
+    return response
+
+
 
 @app.route("/")
 def index():
